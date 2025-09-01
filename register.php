@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -10,6 +11,21 @@
 <body>
 
     <h2>Форма регистрации</h2>
+
+    <?php
+    // выводим ошибку на странице
+    if (isset($_SESSION['errors'])) {
+        echo '<div style="color: red;">';
+
+        foreach ($_SESSION['errors'] as $error) {
+            echo "<p>{$error}</p>";
+        }
+
+        echo '</div>';
+        
+        unset($_SESSION['errors']);
+    }
+    ?>
 
     <form action="actions/register_action.php" method="POST">
 
