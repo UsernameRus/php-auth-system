@@ -11,7 +11,7 @@
 
     <h2>Форма регистрации</h2>
 
-    <form action="register.php" method="POST">
+    <form action="actions/register_action.php" method="POST">
 
         <div>
             <label for="name">Имя:</label><br>
