@@ -36,7 +36,7 @@ if (empty($errors)) {
         $_POST['phone']
     ]);
 
-    if($stmt->fetch()) {
+    if ($stmt->fetch()) {
         $errors[] = "Пользователь с такой почтой или телефоном уже существует.";
     }
 }
@@ -48,5 +48,22 @@ if (!empty($errors)) {
     exit();
 }
 
-echo 'Валидация прошла успешно.';
-?>
+// регистрируем пользователя
+$passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+$sql = "INSERT INTO users (name, phone, email, password_hash) VALUES (?, ?, ?, ?)";
+$stmt = $pdo->prepare($sql);
+
+try {
+    $stmt->execute([
+        $_POST['name'],
+        $_POST['phone'],
+        $_POST['email'],
+        $passwordHash
+    ]);
+    $_SESSION['success_message'] = "Регистрация прошла успешно! Теперь вы можете войти.";
+    header('Location: ../login.php');
+    exit();
+} catch (PDOException $e) {
+    die("Ошибка при регистрации пользователя: " . $e->getMessage());
+}
