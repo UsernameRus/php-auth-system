@@ -23,6 +23,24 @@ if (!empty($_POST['password']) && $_POST['password'] !== $_POST['password_confir
     $errors[] = "Пароли не совпадают.";
 }
 
+// проверка на уникальность в БД
+if (empty($errors)) {
+    require_once '../db.php';
+
+    $sql = "SELECT id FROM users WHERE email = ? OR phone = ?";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        $_POST['email'],
+        $_POST['phone']
+    ]);
+
+    if($stmt->fetch()) {
+        $errors[] = "Пользователь с такой почтой или телефоном уже существует.";
+    }
+}
+
 // если есть хоть одна ошибка
 if (!empty($errors)) {
     $_SESSION['errors'] = $errors;

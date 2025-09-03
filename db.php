@@ -9,7 +9,7 @@ $password = '';
 
 try {
   $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4";
-  $pdo = new PDO($dsn, $username, $password, $options);
+  $pdo = new PDO($dsn, $username, $password);
 } catch (PDOException $e) {
   die("Ошибка подключения к базе данных: " . $e->getMessage());
 }
