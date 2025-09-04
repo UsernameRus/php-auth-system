@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Авторизация</title>
+    <script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
 </head>
 
 <body>
@@ -39,9 +40,13 @@
         </div>
         <br>
 
-        <div>
-            <input type="submit" value="Авторизоваться">
-        </div>
+        <div
+            id="captcha-container"
+            class="smart-captcha"
+            data-sitekey="ysc1_rhbjftEQ9bl5VapZ4sdM4Oauz1Q0swHag5bPq1Jwfdc1d02d"></div>
+        <br>
+        <input type="submit" value="Авторизоваться">
+
     </form>
 
 </body>
